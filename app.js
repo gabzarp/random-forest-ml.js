@@ -17,7 +17,6 @@ const model = {
 }
 const classifier = {
   predict: (ctx) => {
-    console.log(ctx.request.header)
     ctx.body = clsf.predict(ctx.request.header.data)
   }
 }

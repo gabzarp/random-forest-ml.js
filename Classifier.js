@@ -2,7 +2,7 @@
 
 const Diagnosis = require("./Diagnosis");
 const ConfusionMatrix = require('ml-confusion-matrix')
-const RandomForestClassifier = require('ml-random-forest');
+const rmcl = require('ml-random-forest');
 var fs = require('fs');
 
 module.exports = Classifier;
@@ -26,9 +26,8 @@ Classifier.prototype.createModel = function(file){
     var prediction = this.diagnosis.getClasses().map((elem) =>
     this.diagnosis.getDistinctClasses().indexOf(elem)
     );
-    console.log(prediction);
-    console.log(trainingSet);
-    var classifier = new RandomForestClassifier.RandomForestClassifier(this.options);
+
+  var classifier = new rmcl.RandomForestClassifier(this.options);
     classifier.train(trainingSet, prediction);
 
     fs.writeFile('model.json', JSON.stringify(classifier.toJSON()), (err) =>{
@@ -42,8 +41,6 @@ Classifier.prototype.getModel = function(){
 }
 
 Classifier.prototype.predict = function(data){
-  console.log(data)
-  console.log(JSON.parse(data))
-  var classifier = new RandomForestClassifier.RandomForestClassifier(this.options);
+  var classifier = new rmcl.RandomForestClassifier(true, this.model);
   return classifier.predict([JSON.parse(data)])
 }
