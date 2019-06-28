@@ -6,7 +6,11 @@ const path = require('path');
 // let dataset = JSON.parse(rawdata);  
 module.exports = Diagnosis;
 function Diagnosis(){
-    this.dataset = JSON.parse(fs.readFileSync("./diagnosis.json"))
+    try{
+        this.dataset = JSON.parse(fs.readFileSync("./diagnosis.json"))
+    }catch(e){
+        this.dataset = null
+    }
 }
 Diagnosis.prototype.saveDataset = function(file){
     if(file){
@@ -14,24 +18,41 @@ Diagnosis.prototype.saveDataset = function(file){
         let stream = fs.createWriteStream('./diagnosis.json');
         stream.on('open', function(){
             reader.pipe(stream);
+        }).on('end', function(){
+            this.dataset = JSON.parse(fs.readFileSync("./diagnosis.json"))
         })
     }
-    this.dataset = JSON.parse(fs.readFileSync("./diagnosis.json"))
 
     console.log('diagnosis.json uploaded');
     return;
 }
 
 Diagnosis.prototype.getDataset = function() {
-    return this.dataset.slice();
+    try{
+        this.dataset.map(d => console.log(d.lenght))
+        return this.dataset.slice();
+    }
+    catch (e){
+        return null
+    }
 };
 
 Diagnosis.prototype.getNumbers = function() {
-    return this.dataset.map(d => d.slice(0, d.length));
+    try{
+        return this.dataset.map(d => d.slice(0, d.slice().length-1));
+    }
+    catch (e){
+        return null
+    }
 };
 
 Diagnosis.prototype.getClasses = function() {
-    return this.dataset.map(d => d.length);
+    try{
+        return this.dataset.map(d => d[d.slice().length-1]);
+    }
+    catch (e){
+        return null
+    }
 };
 
 Diagnosis.prototype.getDistinctClasses = function() {

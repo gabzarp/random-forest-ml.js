@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const app = new Koa();
-const Model = require('./model')
+const Classifier = require('./classifier')
+const clsf = new Classifier();
 const _ = require('koa-route')
 const bodyParser = require('koa-body')
 const logger = require('koa-logger');
@@ -10,15 +11,19 @@ app.use(bodyParser({multipart: true}))
 
 const model = {
   createModel: (ctx) => {
-    Model.createModel(ctx.request.files.file)
+    clsf.createModel(ctx.request.files.file)
     ctx.body = "Dataset Saved"
   }
 }
 const classifier = {
-  
+  predict: (ctx) => {
+    console.log(ctx.request.header)
+    ctx.body = clsf.predict(ctx.request.header.data)
+  }
 }
 
 app.use(_.post('/model', model.createModel))
+  .use(_.get('/predict', classifier.predict))
 
 // app.use(async ctx => {
     
