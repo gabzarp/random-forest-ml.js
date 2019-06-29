@@ -28,13 +28,16 @@ Classifier.prototype.createModel = async function(file){
     );
 
   var classifier = new rmcl.RandomForestClassifier(this.options);
-    classifier.train(trainingSet, prediction);
+  classifier.train(trainingSet, prediction);
 
-    fs.writeFile('model.json', JSON.stringify(classifier.toJSON()), (err) =>{
-        if(err) throw err;
-        console.log("Model saved")
-        return;
-    });
+  fs.writeFileSync('model.json', JSON.stringify(classifier.toJSON()))
+  var result = classifier.predict(trainingSet);
+  const CM = ConfusionMatrix.fromLabels(prediction, result);
+  return  { 'Accuracy': CM.getAccuracy(),
+            'True value': this.diagnosis.getDistinctClasses()[0],
+            'Sensitivity': CM.getTruePositiveRate(0),
+            'Specificity': CM.getTrueNegativeRate(0)
+          }
 }
 Classifier.prototype.getModel = function(){
   return this.model
