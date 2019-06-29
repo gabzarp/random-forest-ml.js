@@ -42,5 +42,8 @@ Classifier.prototype.getModel = function(){
 
 Classifier.prototype.predict = function(data){
   var classifier = new rmcl.RandomForestClassifier(true, this.model);
-  return classifier.predict([JSON.parse(data)])
+  var predictions = classifier.predict([JSON.parse(data)])
+  var distinctClasses = this.diagnosis.getDistinctClasses()
+
+  return predictions.map( d => distinctClasses[d])
 }

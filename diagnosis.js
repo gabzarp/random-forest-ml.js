@@ -61,4 +61,3 @@ Diagnosis.prototype.getDistinctClasses = function() {
     const distinctClasses = classes.filter(distinct);
     return distinctClasses;
 };
-
