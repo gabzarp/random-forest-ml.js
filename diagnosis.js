@@ -12,24 +12,22 @@ function Diagnosis(){
         this.dataset = null
     }
 }
-Diagnosis.prototype.saveDataset = function(file){
+Diagnosis.prototype.saveDataset = async function(file){
     if(file){
         let reader = fs.createReadStream(file.path);
-        let stream = fs.createWriteStream('./diagnosis.json');
-        stream.on('open', function(){
-            reader.pipe(stream);
-        }).on('end', function(){
-            this.dataset = JSON.parse(fs.readFileSync("./diagnosis.json"))
+        reader.on('open', () =>{
+            let stream = fs.createWriteStream('./diagnosis.json');
+            stream.on('open', () => {
+                reader.pipe(stream);
+            }).on('end', () => {
+                this.dataset = JSON.parse(fs.readFileSync("./diagnosis.json"))
+            })
         })
     }
-
-    console.log('diagnosis.json uploaded');
-    return;
 }
 
 Diagnosis.prototype.getDataset = function() {
     try{
-        this.dataset.map(d => console.log(d.lenght))
         return this.dataset.slice();
     }
     catch (e){
@@ -56,6 +54,11 @@ Diagnosis.prototype.getClasses = function() {
 };
 
 Diagnosis.prototype.getDistinctClasses = function() {
-    return ['no', 'yes'];
+    const distinct = (value, index, self) => {
+        return self.indexOf(value) === index;
+    }
+    const classes = this.getClasses();
+    const distinctClasses = classes.filter(distinct);
+    return distinctClasses;
 };
 

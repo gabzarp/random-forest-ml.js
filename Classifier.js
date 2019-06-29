@@ -19,8 +19,8 @@ function Classifier(){
   };  
 }
 
-Classifier.prototype.createModel = function(file){
-    this.diagnosis.saveDataset(file)
+Classifier.prototype.createModel = async function(file){
+    await this.diagnosis.saveDataset(file)
     var trainingSet = this.diagnosis.getNumbers();
     
     var prediction = this.diagnosis.getClasses().map((elem) =>
