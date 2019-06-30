@@ -12,7 +12,7 @@ To run project: node app.js
 JSON array training data set example: [ [1, 0, 1, 'yes', 'no'] ]
 Obs. The last column of the array must be your desired classification and is restricted to two values
 ```
-*Response body:
+* Response body:
 ```
 {
     "Accuracy": *The accuracy of the model*,
