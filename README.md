@@ -7,9 +7,9 @@ To run project: node app.js
 * Request body: 
 ```
 { 
-  file : * Your JSON Array Data set*
+  file : * Your JSON array training data set*
 }
-JSON Array Data set example: [ [1, 0, 1, 'yes', 'no'] ]
+JSON array training data set example: [ [1, 0, 1, 'yes', 'no'] ]
 Obs. The last column of the array must be your desired classification and is restricted to two values
 ```
 *Response body:
