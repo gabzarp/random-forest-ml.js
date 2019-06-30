@@ -10,7 +10,7 @@ To run project: node app.js
   file : * Your JSON array training data set*
 }
 JSON array training data set example: [ [1, 0, 1, 'yes', 'no'] ]
-Obs. The last column of the array must be your desired classification and is restricted to two values
+Obs. The last column of the array must be your desired classification and it is restricted to two values
 ```
 * Response body:
 ```
