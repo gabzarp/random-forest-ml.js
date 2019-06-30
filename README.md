@@ -1,5 +1,5 @@
 # random-forest-ml.js
-Implementation of Random Forest using ml.js
+To run project: node app.js
 # API Reference
 1. Create model from dataset
 * Endpoint: /model 
