@@ -33,7 +33,7 @@ Prediction Array exemple [ [1, 0, 1, 'yes'], [0, 1, 0, 'no'] ]
 ```
 * Response: 
 ```
-[ *Predict of array 1*, *Predict of value 2*, ...]
+[ *Predict of array 1*, *Predict of array 2*, ...]
 Responde example: ['yes', 'no']
 Obs. Your response will return in the model classification syntax
 ```
